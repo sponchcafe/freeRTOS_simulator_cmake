@@ -21,7 +21,24 @@ void vApplicationIdleHook() {
     printf("IDLING\n");
 }
 
+static void workerTask(void *pvParameters){
+
+    while(1){
+        printf("working...\n");
+    }
+
+}
+
 int main( void ) {
+
+    xTaskCreate(
+            workerTask, 
+            "Worker", 
+            configMINIMAL_STACK_SIZE*10,
+            NULL,
+            tskIDLE_PRIORITY, 
+            NULL
+    );
 
 	vTaskStartScheduler();
 
